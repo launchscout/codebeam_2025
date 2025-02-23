@@ -1,0 +1,56 @@
+<div class="airport-map-container">
+  <%= if @favorite_airport do %>
+    <div class="favorite-airport-section">
+      <h2 class="text-xl font-bold mb-4">Your favorite airport</h2>
+      <p class="text-sm mb-2">
+        You have marked <strong>{@favorite_airport.name}</strong> as your favorite airport.
+      </p>
+    </div>
+  <% end %>
+
+  <div class="search-section">
+    <h1 class="text-2xl font-bold mb-4">Find your favorite airport</h1>
+    <.form for={@form} phx-submit="choose_favorite" class="flex gap-4 items-end mb-6">
+      <div class="form-group">
+        <label class="block text-sm font-medium mb-1" for="airport_code">Airport Code</label>
+        <.autocomplete_input
+          name="airport_code"
+          id="airport-autocomplete"
+          display-value="Search by name or code"
+          min_length={3}
+          items={options_for(@airports)}
+        />
+      </div>
+      <.button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+        Mark as favorite
+      </.button>
+    </.form>
+  </div>
+
+  <gmpx-api-loader key={@api_key}></gmpx-api-loader>
+
+  <%= if @airport do %>
+    <div class="map-container">
+      <gmp-map
+        id="my-map"
+        center={coordinates(@airport)}
+        zoom="10"
+        map-id="DEMO_MAP_ID"
+        class="google-map"
+      >
+        <gmp-advanced-marker
+          class="pannable"
+          position={coordinates(@airport)}
+          title={@airport.name}
+        >
+          <div class="airport-marker">
+            <div class="marker-content">
+              <div class="airport-code">{@airport.ident}</div>
+              <div class="airport-name">{@airport.name}</div>
+            </div>
+          </div>
+        </gmp-advanced-marker>
+      </gmp-map>
+    </div>
+  <% end %>
+</div>

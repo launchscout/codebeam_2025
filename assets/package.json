@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "marp slides.md -o ../priv/static/slides.html",
+    "watch": "marp slides.md -w -o ../priv/static/slides.html"
+  },
+  "dependencies": {
+    "@googlemaps/extended-component-library": "^0.6.13",
+    "@launchscout/autocomplete-input": "^0.3.3",
+    "@marp-team/marp-cli": "^4.1.1",
+    "import": "^0.0.6",
+    "phoenix-custom-event-hook": "^0.0.6"
+  }
+}
