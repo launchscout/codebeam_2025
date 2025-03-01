@@ -6,7 +6,9 @@ marp: true
 
 ---
 
-# Me
+# Hi!
+## Chris Nelson
+### @superchris.launchschout.com (bsky)
 - Co-Founder of Launch Scout
 - Creator of LiveElements
 - Creator of LiveState
@@ -50,6 +52,7 @@ marp: true
 
 # How does LiveView talk to an element?
 - Pass data via attributes and child elements
+- Your element will need re-render when these change!
 - For complex data, JSON serialization is a solid choice
 
 ---
@@ -183,6 +186,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
 
 # What's worked for us when building Custom Element
 - Choose a library, don't commit to a framework
+  - Our favorite is Lit
 - Keep your elements "dumb"
   - render state
   - dispatch events
@@ -191,7 +195,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
 ---
 
 # Useful things to know
-- LV replaces elements when it renders
+- LV often replaces elements when it renders
   - if your element has internal state this gets tricky
   - `phx-update="ignore" can help
   - but watch out for slots!
