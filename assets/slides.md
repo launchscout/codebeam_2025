@@ -1,8 +1,39 @@
 ---
 marp: true
+style: |
+
+  section h1 {
+    color: #6042BC;
+  }
+
+  section code {
+    background-color: #e0e0ff;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+  }
+
+  footer img {
+    position: absolute;
+    width: 120px;
+    right: 20px;
+    top: 0;
+
+  }
+  section #title-slide-logo {
+    margin-left: -60px;
+  }
 ---
 
 # LiveView and Web Components
+Chris Nelson
+@superchris.launchscout.com (BlueSky)
+![h:200](/images/full-color.png#title-slide-logo)
 
 ---
 
@@ -78,11 +109,19 @@ marp: true
 
 ---
 
-# The custom elements
-- `<autocomplete-input>`
+# `<.autocomplete_input>`
+  - starts in a closed state
+  - sends events for search and commit
+  - items are passed in attribute
+- open/close is client only state
+
+---
+
+# Map elements
 - `<gmpx-api-loader>`
 - `<gmp-map>`
 - `<gmp-map-advance-marker>`
+- Display only, no events are sent
 
 ---
 
@@ -113,7 +152,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
 ```
 - creates `.autocomplete_input` to wrap `<autocomplete-input>`
 - listens for the events and pushes them to LiveView
-- no need to wrap the map elements
+
 ---
 ## Meanwhile, in our template
 ```html
@@ -184,7 +223,34 @@ let liveSocket = new LiveSocket("/live", Socket, {
 ```
 ---
 
-# What's worked for us when building Custom Element
+# The big challenge with LV and Custom Elements
+- LiveView replaces elements when it renders
+- Which is fine..
+  - except when it's not :)
+- Hence the "flash" on airport change
+
+---
+
+# Workarounds
+- `phx-update="ignore"`
+  - will not touch the element or its descendants
+  - except data attributes
+  - nested will not be re-rendered
+- Pass data via attributes and render in a Shadow DOM
+  - LiveView cannot reach inside a Shadow DOM
+  - this breaks for slotted or child elements
+
+---
+
+# Multiple sources of state is hard
+- All server is great
+- All client is ok
+- Mixing them is hard
+
+---
+
+# You may need to build your own wrapper elements
+## What's worked for us when building Custom Element
 - Choose a library, don't commit to a framework
   - Our favorite is Lit
 - Keep your elements "dumb"
@@ -194,12 +260,12 @@ let liveSocket = new LiveSocket("/live", Socket, {
 
 ---
 
-# Useful things to know
-- LV often replaces elements when it renders
-  - if your element has internal state this gets tricky
-  - `phx-update="ignore" can help
-  - but watch out for slots!
-- LV can't reach into the Shadow DOM
+# Non-LV options
+- LiveState
+  - Uses Phoenix channel to managed app state
+  - Bring your own rendering
+  - It's possible to use with LV by establishing a "sync" channel
+- LiveView Native is also exploring this idea
 
 ---
 

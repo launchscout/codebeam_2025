@@ -27,7 +27,7 @@
     </.form>
   </div>
 
-  <gmpx-api-loader key={@api_key}></gmpx-api-loader>
+  <gmpx-api-loader id="api_loader"phx-update="ignore" key={@api_key}></gmpx-api-loader>
 
   <%= if @airport do %>
     <div class="map-container">

@@ -14,7 +14,7 @@ defmodule Codebeam2025Web.AirportMapLive do
     {:ok,
      assign(socket,
        airports: [],
-       api_key: System.get_env("API_KEY"),
+       api_key: Application.get_env(:codebeam_2025, :api_key),
        airport: nil,
        favorite_airport: nil,
        form: to_form(%{"airport_code" => ""})
@@ -34,7 +34,8 @@ defmodule Codebeam2025Web.AirportMapLive do
   end
 
   def handle_event("choose_favorite", %{"airport_code" => airport_code}, socket) do
-    {:noreply, socket |> assign(:favorite_airport, Airports.get_airport_by_code(airport_code)) |> assign(:airports, [])}
+    airport = Airports.get_airport_by_code(airport_code)
+    {:noreply, socket |> assign(:favorite_airport, airport) |> assign(:airport, airport) |> assign(:airports, [])}
   end
 
   @impl true
