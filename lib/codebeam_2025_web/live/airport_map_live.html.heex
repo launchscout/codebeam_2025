@@ -1,13 +1,4 @@
 <div class="airport-map-container">
-  <%= if @favorite_airport do %>
-    <div class="favorite-airport-section">
-      <h2 class="text-xl font-bold mb-4">Your favorite airport</h2>
-      <p class="text-sm mb-2">
-        You have marked <strong>{@favorite_airport.name}</strong> as your favorite airport.
-      </p>
-    </div>
-  <% end %>
-
   <div class="search-section">
     <h1 class="text-2xl font-bold mb-4">Find your favorite airport</h1>
     <.form for={@form} phx-submit="choose_favorite" class="flex gap-4 items-end mb-6">
@@ -21,9 +12,6 @@
           items={options_for(@airports)}
         />
       </div>
-      <.button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-        Mark as favorite
-      </.button>
     </.form>
   </div>
 

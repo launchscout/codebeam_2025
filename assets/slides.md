@@ -116,6 +116,13 @@ Chris Nelson
 - open/close is client only state
 
 ---
+## Dispatching a custom event
+```js
+this.dispatchEvent(
+  new CustomEvent('autocomplete-search', { detail: { query: this.searchInput.value, name: this.name } }));
+```
+
+---
 
 # Map elements
 - `<gmpx-api-loader>`
@@ -167,9 +174,6 @@ let liveSocket = new LiveSocket("/live", Socket, {
       items={options_for(@airports)}
     />
   </div>
-  <.button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-    Mark as favorite
-  </.button>
 </.form>
 
 ```
@@ -186,10 +190,6 @@ let liveSocket = new LiveSocket("/live", Socket, {
      socket
      |> assign(:airport, Airports.get_airport_by_code(value))
      |> assign(:airports, [])}
-  end
-
-  def handle_event("choose_favorite", %{"airport_code" => airport_code}, socket) do
-    {:noreply, socket |> assign(:favorite_airport, Airports.get_airport_by_code(airport_code)) |> assign(:airports, [])}
   end
 ```
 ---
@@ -223,7 +223,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
 ```
 ---
 
-# The big challenge with LV and Custom Elements
+# Challenges with LV and Custom Elements
 - LiveView replaces elements when it renders
 - Which is fine..
   - except when it's not :)
@@ -236,39 +236,34 @@ let liveSocket = new LiveSocket("/live", Socket, {
   - will not touch the element or its descendants
   - except data attributes
   - nested will not be re-rendered
-- Pass data via attributes and render in a Shadow DOM
+- Render in a Shadow DOM
   - LiveView cannot reach inside a Shadow DOM
   - this breaks for slotted or child elements
 
 ---
 
-# Multiple sources of state is hard
-- All server is great
-- All client is ok
-- Mixing them is hard
-
----
-
-# You may need to build your own wrapper elements
-## What's worked for us when building Custom Element
+# Building your own custom elements
+- Great way to wrap js library
+  - e. g. FullCalendar, ChartJS
 - Choose a library, don't commit to a framework
   - Our favorite is Lit
 - Keep your elements "dumb"
   - render state
   - dispatch events
-- smaller is better
 
 ---
 
 # Non-LV options
-- LiveState
+## If the limitations of LV are a dealbreaker
+- [LiveState](github.com/launchscout/live_state)
   - Uses Phoenix channel to managed app state
   - Bring your own rendering
   - It's possible to use with LV by establishing a "sync" channel
-- LiveView Native is also exploring this idea
+- LiveView Native
 
 ---
 
 # Thanks!
+## Questions?
 
 ---
