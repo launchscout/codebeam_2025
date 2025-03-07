@@ -253,17 +253,31 @@ let liveSocket = new LiveSocket("/live", Socket, {
 
 ---
 
-# Non-LV options
+# [LiveState](github.com/launchscout/live_state)
 ## If the limitations of LV are a dealbreaker
-- [LiveState](github.com/launchscout/live_state)
-  - Uses Phoenix channel to managed app state
-  - Bring your own rendering
-  - It's possible to use with LV by establishing a "sync" channel
-- LiveView Native
+- Connects js to a stateful channel
+- Think LV without the rendering
+  - client libs for custom elements, React, signals
+- It's possible to use LiveState with LV
+  - Using after_render hook to pubsub to a LiveState sync channel
+  - js lib uses LiveState to subscribe to assigns
+
+---
+
+# LiveView/Livestate [demo](http://localhost:4001/people)
 
 ---
 
 # Thanks!
-## Questions?
+
+![h:400](/images/qr-code.png)
+
+---
+
+## Resources
+- github:launchscout/codebeam_2025
+- github:launchscout/live_elements
+- github:launchscout/live_state
+- github:superchris/lv_hook_experiment
 
 ---
