@@ -33,13 +33,13 @@ style: |
 # LiveView and Web Components
 Chris Nelson
 @superchris.launchscout.com (BlueSky)
+github.com/superchris
 ![h:200](/images/full-color.png#title-slide-logo)
 
 ---
 
 # Hi!
 ## Chris Nelson
-### @superchris.launchschout.com (bsky)
 - Co-Founder of Launch Scout
 - Creator of LiveElements
 - Creator of LiveState
